@@ -1,24 +1,62 @@
 'use client';
 
+import { Conversation, ConversationContent, ConversationEmptyState } from '@/components/ai-elements/conversation';
+import { Message, MessageContent, MessageResponse } from '@/components/ai-elements/message';
+import { Button } from '@/components/ui/button';
 import { useChat } from '@ai-sdk/react';
-import { useState } from 'react';
+import { ArrowUp, MessageSquareIcon, Send } from 'lucide-react';
+import { use, useEffect, useRef, useState } from 'react';
 
 export default function Chat() {
   const [input, setInput] = useState('');
   const { messages, sendMessage } = useChat();
+  const refScrollDown = useRef<HTMLDivElement>(null);
+  const refScrollUp = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    refScrollDown.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
   return (
-    <div className="flex flex-col w-full max-w-[400px] py-24 mx-auto stretch">
-      {messages.map(message => (
-        <div key={message.id} className="whitespace-pre-wrap">
-          {message.role === 'user' ? 'User: ' : 'AI: '}
-          {message.parts.map((part, i) => {
-            switch (part.type) {
-              case 'text':
-                return <div key={`${message.id}-${i}`}>{part.text}</div>;
-            }
-          })}
-        </div>
-      ))}
+    <Conversation className="relative flex flex-col w-full max-w-[700px] py-24 mx-auto stretch">
+      <ConversationContent>
+        {messages.length === 0 ? (
+          <ConversationEmptyState
+            description="Messages will appear here as the conversation progresses."
+            icon={<MessageSquareIcon className="size-6" />}
+            title="Start a conversation"
+          />
+        ) : (
+          <>
+          <div ref={refScrollUp} />
+            {messages.map((message) => (
+              <Message from={message.role} key={message.id}>
+                <MessageContent>
+                  {message.parts.map((part, i) => {
+                    switch (part.type) {
+                      case 'text':
+                        return message.role === 'assistant' ? (
+                          <MessageResponse key={`${message.id}-${i}`} className="markdown-content">
+                            {part.text}
+                          </MessageResponse>
+                        ) : (
+                          <div key={`${message.id}-${i}`} className="whitespace-pre-wrap">{part.text}</div>
+                        );
+                    }
+                  })}
+                </MessageContent>
+              </Message>
+            ))}
+            <div ref={refScrollDown} />
+          </>
+        )}
+      </ConversationContent>
+
+
+      <Button onClick={() => refScrollUp.current?.scrollIntoView({ behavior: 'smooth' })} variant="outline"
+        size="icon" className='fixed z-10 left-1/2 transform -translate-x-1/2 bottom-20   flex items-center justify-center cursor-pointer h-9 w-9 shadow-border-small hover:shadow-border-medium bg-background/80 backdrop-blur-sm border-0 hover:bg-background hover:scale-[1.02] transition-all duration-150 ease'>
+        <ArrowUp className="h-4 w-4" />
+      </Button>
 
       <form
         onSubmit={e => {
@@ -26,14 +64,21 @@ export default function Chat() {
           sendMessage({ text: input });
           setInput('');
         }}
+        className='fixed left-1/2 transform -translate-x-1/2 bottom-4 w-full max-w-[700px] border-border border  rounded-lg  flex items-center justify-center gap-2 px-3 py-2 mt-4 h-[49px] bg-background'
       >
         <input
-          className="fixed dark:bg-zinc-900 bottom-0 w-full max-w-[400px] p-2 mb-8 border border-zinc-300 dark:border-zinc-800 rounded shadow-xl"
+          className=" w-full  outline-none placeholder:text-muted-foreground"
           value={input}
           placeholder="Say something..."
           onChange={e => setInput(e.currentTarget.value)}
         />
+
+        <Send className="h-4 w-4 cursor-pointer" onClick={e => {
+          e.preventDefault();
+          sendMessage({ text: input });
+          setInput('');
+        }} />
       </form>
-    </div>
+    </Conversation >
   );
 }
