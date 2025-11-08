@@ -1,6 +1,6 @@
 # 🤖 AI Assistant
 
-A modern, responsive AI chat assistant built with Next.js 15, TypeScript, and Google's Gemini AI. Features real-time streaming responses, beautiful syntax highlighting, and a polished dark/light theme.
+A modern, responsive AI chat assistant built with Next.js 15, TypeScript, AI-sdk, AI Elements and Google's Gemini AI. Features real-time streaming responses, beautiful syntax highlighting, and a polished dark/light theme.
 
 ## ✨ Features
 
