@@ -33,7 +33,7 @@ export default function Chat() {
   return (
     <Container className='relative'>
 
-      <Conversation className="relative flex flex-col w-full max-w-[700px] py-24 mx-auto stretch">
+      <Conversation className="relative flex flex-col  py-24 mx-auto stretch">
         <ConversationContent>
           {messages.length === 0 ? (
             <ConversationEmptyState
@@ -92,40 +92,44 @@ export default function Chat() {
             <ArrowUp className="h-4 w-4" />
           </Button>
         )}
+        <Container className=' fixed  left-1/2 transform -translate-x-1/2 bottom-4   '>
 
-        <form
-          onSubmit={e => {
-            e.preventDefault();
-            sendMessage({ text: input });
-            setInput('');
-          }}
-          className=' fixed left-1/2 transform -translate-x-1/2 bottom-4 w-[calc(100%-16px)] max-w-[700px] border-border border  rounded-lg  flex items-center justify-center gap-2 px-3 py-2 mt-4 h-[49px] bg-background'
-        >
-          <input
-            className=" w-full  outline-none placeholder:text-muted-foreground"
-            value={input}
-            placeholder="Say something..."
-            onChange={e => setInput(e.currentTarget.value)}
-          />
-          {(status === 'submitted' || status === 'streaming') ? (
-            <Button onClick={() => stop()} variant="outline"
-              size="icon" className="  flex items-center justify-center cursor-pointer h-9 w-9 shadow-border-small hover:shadow-border-medium bg-background/80 backdrop-blur-sm border-0 hover:bg-background hover:scale-[1.02] transition-all duration-150 ease animate-pulse">
 
-              <Square />
-            </Button>
-          ) : (
-
-            <Button onClick={e => {
+          <form
+            onSubmit={e => {
               e.preventDefault();
               sendMessage({ text: input });
               setInput('');
-            }} variant="outline"
-              size="icon" className="  flex items-center justify-center cursor-pointer h-9 w-9 shadow-border-small hover:shadow-border-medium bg-background/80 backdrop-blur-sm border-0 hover:bg-background hover:scale-[1.02] transition-all duration-150 ease">
+            }}
+            className='w-full border-border border  rounded-lg  flex items-center justify-center gap-2 px-3 py-2 mt-4 h-[49px] bg-background'
+          >
+            <input
+              className=" w-full  outline-none placeholder:text-muted-foreground"
+              value={input}
+              placeholder="Say something..."
+              onChange={e => setInput(e.currentTarget.value)}
+            />
+            {(status === 'submitted' || status === 'streaming') ? (
+              <Button onClick={() => stop()} variant="outline"
+                size="icon" className="  flex items-center justify-center cursor-pointer h-9 w-9 shadow-border-small hover:shadow-border-medium bg-background/80 backdrop-blur-sm border-0 hover:bg-background hover:scale-[1.02] transition-all duration-150 ease animate-pulse">
 
-              <Send />
-            </Button>
-          )}
-        </form>
+                <Square />
+              </Button>
+            ) : (
+
+              <Button onClick={e => {
+                e.preventDefault();
+                sendMessage({ text: input });
+                setInput('');
+              }} variant="outline"
+                size="icon" className="  flex items-center justify-center cursor-pointer h-9 w-9 shadow-border-small hover:shadow-border-medium bg-background/80 backdrop-blur-sm border-0 hover:bg-background hover:scale-[1.02] transition-all duration-150 ease">
+
+                <Send />
+              </Button>
+            )}
+          </form>
+
+        </Container>
       </Conversation >
 
     </Container>
