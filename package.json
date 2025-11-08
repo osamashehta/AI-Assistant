@@ -1,6 +1,24 @@
 {
-  "name": "ai-sdk-next",
-  "version": "0.1.0",
+  "name": "ai-assistant",
+  "version": "1.0.0",
+  "description": "A modern AI chat assistant built with Next.js 15, TypeScript, and Google's Gemini AI featuring real-time streaming, syntax highlighting, and beautiful UI",
+  "author": "Osama Saqr",
+  "homepage": "https://ai-assistant-rho-rose.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/osamashehta/AI-Assistant.git"
+  },
+  "keywords": [
+    "ai",
+    "assistant",
+    "chatbot",
+    "nextjs",
+    "typescript",
+    "gemini",
+    "streaming",
+    "react",
+    "tailwindcss"
+  ],
   "private": true,
   "scripts": {
     "dev": "next dev",

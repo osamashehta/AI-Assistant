@@ -7,7 +7,7 @@ import Container from '@/components/shared/Container';
 import { Button } from '@/components/ui/button';
 import { useChat } from '@ai-sdk/react';
 import { ArrowUp, MessageSquareIcon, Send, Square } from 'lucide-react';
-import { use, useEffect, useRef, useState } from 'react';
+import {  useEffect, useRef, useState } from 'react';
 
 export default function Chat() {
   const [input, setInput] = useState('');
@@ -43,9 +43,9 @@ export default function Chat() {
             />
           ) : (
             <>
-              <div ref={refScrollUp} />
               {messages.map((message) => (
                 <Message from={message.role} key={message.id}>
+                  <div ref={refScrollUp} />
                   <MessageContent>
                     {message.parts.map((part, i) => {
                       switch (part.type) {
