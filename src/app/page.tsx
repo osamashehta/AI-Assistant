@@ -104,7 +104,7 @@ export default function Chat() {
             className='w-full border-border border  rounded-lg  flex items-center justify-center gap-2 px-3 py-2 mt-4 h-[49px] bg-background'
           >
             <input
-              className=" w-full  outline-none placeholder:text-muted-foreground"
+              className=" w-full bg-transparent outline-none placeholder:text-muted-foreground text-foreground"
               value={input}
               placeholder="Say something..."
               onChange={e => setInput(e.currentTarget.value)}
