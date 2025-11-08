@@ -8,27 +8,18 @@ import {
 import { cn } from "@/lib/utils";
 import type { ComponentProps } from "react";
 
-export type SuggestionsProps = ComponentProps<typeof ScrollArea> & {
-  wrap?: boolean;
-};
+export type SuggestionsProps = ComponentProps<typeof ScrollArea>;
 
 export const Suggestions = ({
   className,
   children,
-  wrap = false,
   ...props
 }: SuggestionsProps) => {
-  if (wrap) {
-    return (
-      <div className={cn("flex flex-wrap items-center gap-2 w-full", className)}>
-        {children}
-      </div>
-    );
-  }
+
 
   return (
     <ScrollArea className="w-full overflow-x-auto whitespace-nowrap" {...props}>
-      <div className={cn("flex w-max flex-nowrap items-center gap-2", className)}>
+      <div className={cn("flex flex-wrap items-center gap-2 w-full", className)}>
         {children}
       </div>
       <ScrollBar className="hidden" orientation="horizontal" />

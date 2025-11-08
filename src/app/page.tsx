@@ -3,6 +3,7 @@
 import { Conversation, ConversationContent, ConversationEmptyState } from '@/components/ai-elements/conversation';
 import { Message, MessageContent, MessageResponse } from '@/components/ai-elements/message';
 import { Suggestion, Suggestions } from '@/components/ai-elements/suggestion';
+import Container from '@/components/shared/Container';
 import { Button } from '@/components/ui/button';
 import { useChat } from '@ai-sdk/react';
 import { ArrowUp, MessageSquareIcon, Send } from 'lucide-react';
@@ -30,6 +31,8 @@ export default function Chat() {
   ];
 
   return (
+    <Container className='relative'>
+
     <Conversation className="relative flex flex-col w-full max-w-[700px] py-24 mx-auto stretch">
       <ConversationContent>
         {messages.length === 0 ? (
@@ -67,7 +70,7 @@ export default function Chat() {
        {messages.length === 0 && (
 
 
-        <Suggestions wrap>
+        <Suggestions >
         {suggestions.map((suggestion) => (
           <Suggestion
             key={suggestion}
@@ -96,7 +99,7 @@ export default function Chat() {
           sendMessage({ text: input });
           setInput('');
         }}
-        className='fixed left-1/2 transform -translate-x-1/2 bottom-4 w-full max-w-[700px] border-border border  rounded-lg  flex items-center justify-center gap-2 px-3 py-2 mt-4 h-[49px] bg-background'
+        className=' fixed left-1/2 transform -translate-x-1/2 bottom-4 w-[calc(100%-16px)] max-w-[700px] border-border border  rounded-lg  flex items-center justify-center gap-2 px-3 py-2 mt-4 h-[49px] bg-background'
       >
         <input
           className=" w-full  outline-none placeholder:text-muted-foreground"
@@ -112,5 +115,7 @@ export default function Chat() {
         }} />
       </form>
     </Conversation >
+
+    </Container>
   );
 }
