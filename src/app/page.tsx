@@ -2,6 +2,7 @@
 
 import { Conversation, ConversationContent, ConversationEmptyState } from '@/components/ai-elements/conversation';
 import { Message, MessageContent, MessageResponse } from '@/components/ai-elements/message';
+import { Suggestion, Suggestions } from '@/components/ai-elements/suggestion';
 import { Button } from '@/components/ui/button';
 import { useChat } from '@ai-sdk/react';
 import { ArrowUp, MessageSquareIcon, Send } from 'lucide-react';
@@ -17,6 +18,17 @@ export default function Chat() {
     refScrollDown.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  const suggestions = [
+    "What are the latest trends in AI?",
+    "How does machine learning work?",
+    "Explain quantum computing",
+    "Best practices for React development",
+    "Tell me about TypeScript benefits",
+    "How to optimize database queries?",
+    "What is the difference between SQL and NoSQL?",
+    "Explain cloud computing basics",
+  ];
+
   return (
     <Conversation className="relative flex flex-col w-full max-w-[700px] py-24 mx-auto stretch">
       <ConversationContent>
@@ -28,7 +40,7 @@ export default function Chat() {
           />
         ) : (
           <>
-          <div ref={refScrollUp} />
+            <div ref={refScrollUp} />
             {messages.map((message) => (
               <Message from={message.role} key={message.id}>
                 <MessageContent>
@@ -52,11 +64,31 @@ export default function Chat() {
         )}
       </ConversationContent>
 
+       {messages.length === 0 && (
 
-      <Button onClick={() => refScrollUp.current?.scrollIntoView({ behavior: 'smooth' })} variant="outline"
-        size="icon" className='fixed z-10 left-1/2 transform -translate-x-1/2 bottom-20   flex items-center justify-center cursor-pointer h-9 w-9 shadow-border-small hover:shadow-border-medium bg-background/80 backdrop-blur-sm border-0 hover:bg-background hover:scale-[1.02] transition-all duration-150 ease'>
-        <ArrowUp className="h-4 w-4" />
-      </Button>
+
+        <Suggestions wrap>
+        {suggestions.map((suggestion) => (
+          <Suggestion
+            key={suggestion}
+            onClick={() => {
+              sendMessage({ text: suggestion });
+              setInput('');
+            }}
+            suggestion={suggestion}
+          />
+        ))}
+      </Suggestions>
+       )}
+
+
+      {messages.length !== 0 && (
+
+        <Button onClick={() => refScrollUp.current?.scrollIntoView({ behavior: 'smooth' })} variant="outline"
+          size="icon" className='fixed z-10 left-1/2 transform -translate-x-1/2 bottom-20   flex items-center justify-center cursor-pointer h-9 w-9 shadow-border-small hover:shadow-border-medium bg-background/80 backdrop-blur-sm border-0 hover:bg-background hover:scale-[1.02] transition-all duration-150 ease'>
+          <ArrowUp className="h-4 w-4" />
+        </Button>
+      )}
 
       <form
         onSubmit={e => {
