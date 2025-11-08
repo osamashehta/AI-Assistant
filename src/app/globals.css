@@ -206,18 +206,10 @@
     border: 1px solid oklch(0.88 0 0) !important;
   }
 
-  .dark .markdown-content code {
-    background-color: oklch(0.22 0 0) !important;
-    color: oklch(0.8 0.08 330) !important;
-    border-color: oklch(0.3 0 0) !important;
-  }
 
   /* Code Blocks with Syntax Highlighting */
   .markdown-content pre {
-    padding: 20px 0;
-    margin: 24px 0;
     overflow-x: auto;
-    border-radius: 8px;
     border: 1px solid oklch(0.88 0 0);
     background: oklch(0.97 0 0);
     counter-reset: line;

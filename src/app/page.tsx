@@ -64,25 +64,52 @@ export default function Chat() {
               ))}
               {error && (
                 <Message from="assistant" key="error">
-                  <MessageContent >
-                    <div className="flex flex-col gap-2">
-                      <div className="flex items-center gap-2 text-destructive font-semibold">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <circle cx="12" cy="12" r="10" />
-                          <line x1="12" y1="8" x2="12" y2="12" />
-                          <line x1="12" y1="16" x2="12.01" y2="16" />
-                        </svg>
-                        Error
-                      </div>
-                      <div className="text-sm text-muted-foreground">
-                        {error.message || 'An error occurred while processing your request.'}
-                      </div>
-                      {error.message?.includes('parts field') && (
-                        <div className="text-xs text-muted-foreground mt-2 p-2 bg-muted rounded">
-                          Please make sure your message is not empty and try again.
+                  <MessageContent>
+                    {error.message?.includes('quota') || error.message?.includes('Quota exceeded') ? (
+                      // Quota/Rate limit error
+                      <div className="w-full flex flex-col gap-4 p-4 bg-linear-to-r from-orange-50 to-red-50 dark:from-orange-950/30 dark:to-red-950/30 border border-orange-200 dark:border-orange-800 rounded-lg">
+                        <div className="w-full flex items-center gap-3">
+                          <div className="shrink-0">
+                            <svg className="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <h3 className="font-semibold text-orange-800 dark:text-orange-200">Rate Limit Reached</h3>
+                            <p className="text-sm text-orange-700 dark:text-orange-300 mt-1">
+                              You've reached your API usage limit for this period.
+                            </p>
+                          </div>
                         </div>
-                      )}
-                    </div>
+
+                      </div>
+                    ) : (
+                      // Generic error
+                      <div className="flex flex-col gap-3 p-4 bg-gradient-to-r from-red-50 to-pink-50 dark:from-red-950/30 dark:to-pink-950/30 border border-red-200 dark:border-red-800 rounded-lg">
+                        <div className="flex items-center gap-3">
+                          <div className="flex-shrink-0">
+                            <svg className="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <h3 className="font-semibold text-red-800 dark:text-red-200">Something went wrong</h3>
+                            <p className="text-sm text-red-700 dark:text-red-300 mt-1">
+                              {error.message?.includes('parts field')
+                                ? 'Please make sure your message is not empty and try again.'
+                                : error.message || 'An unexpected error occurred while processing your request.'
+                              }
+                            </p>
+                          </div>
+                        </div>
+
+                        {error.message?.includes('parts field') && (
+                          <div className="text-xs text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900/20 p-2 rounded">
+                            💡 Tip: Make sure to type a message before sending
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </MessageContent>
                 </Message>
               )}
