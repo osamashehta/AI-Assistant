@@ -11,7 +11,7 @@ import { use, useEffect, useRef, useState } from 'react';
 
 export default function Chat() {
   const [input, setInput] = useState('');
-  const { messages, sendMessage, status, stop } = useChat();
+  const { messages, sendMessage, status, stop, error } = useChat();
   const refScrollDown = useRef<HTMLDivElement>(null);
   const refScrollUp = useRef<HTMLDivElement>(null);
 
@@ -62,6 +62,30 @@ export default function Chat() {
                   </MessageContent>
                 </Message>
               ))}
+              {error && (
+                <Message from="assistant" key="error">
+                  <MessageContent >
+                    <div className="flex flex-col gap-2">
+                      <div className="flex items-center gap-2 text-destructive font-semibold">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <circle cx="12" cy="12" r="10" />
+                          <line x1="12" y1="8" x2="12" y2="12" />
+                          <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg>
+                        Error
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        {error.message || 'An error occurred while processing your request.'}
+                      </div>
+                      {error.message?.includes('parts field') && (
+                        <div className="text-xs text-muted-foreground mt-2 p-2 bg-muted rounded">
+                          Please make sure your message is not empty and try again.
+                        </div>
+                      )}
+                    </div>
+                  </MessageContent>
+                </Message>
+              )}
               <div ref={refScrollDown} />
             </>
           )}
@@ -98,8 +122,10 @@ export default function Chat() {
           <form
             onSubmit={e => {
               e.preventDefault();
-              sendMessage({ text: input });
-              setInput('');
+              if (input.trim()) {
+                sendMessage({ text: input });
+                setInput('');
+              }
             }}
             className='w-full border-border border  rounded-lg  flex items-center justify-center gap-2 px-3 py-2 mt-4 h-[49px] bg-background'
           >
@@ -117,12 +143,18 @@ export default function Chat() {
               </Button>
             ) : (
 
-              <Button onClick={e => {
-                e.preventDefault();
-                sendMessage({ text: input });
-                setInput('');
-              }} variant="outline"
-                size="icon" className="  flex items-center justify-center cursor-pointer h-9 w-9 shadow-border-small hover:shadow-border-medium bg-background/80 backdrop-blur-sm border-0 hover:bg-background hover:scale-[1.02] transition-all duration-150 ease">
+              <Button
+                onClick={e => {
+                  e.preventDefault();
+                  if (input.trim()) {
+                    sendMessage({ text: input });
+                    setInput('');
+                  }
+                }}
+                variant="outline"
+                size="icon"
+                disabled={!input.trim()}
+                className="  flex items-center justify-center cursor-pointer h-9 w-9 shadow-border-small hover:shadow-border-medium bg-background/80 backdrop-blur-sm border-0 hover:bg-background hover:scale-[1.02] transition-all duration-150 ease disabled:opacity-50 disabled:cursor-not-allowed">
 
                 <Send />
               </Button>

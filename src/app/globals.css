@@ -195,166 +195,230 @@
     @apply italic;
   }
 
-  /* Code */
+  /* Inline Code */
   .markdown-content code {
-    @apply px-1.5 py-0.5 rounded text-sm font-mono;
-    background-color: oklch(0.95 0 0);
-    color: oklch(0.3 0 0);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    background-color: oklch(0.94 0 0) !important;
+    color: oklch(0.35 0.08 330) !important;
+    border: 1px solid oklch(0.88 0 0) !important;
   }
 
   .dark .markdown-content code {
-    background-color: oklch(0.25 0 0);
-    color: oklch(0.85 0 0);
+    background-color: oklch(0.22 0 0) !important;
+    color: oklch(0.8 0.08 330) !important;
+    border-color: oklch(0.3 0 0) !important;
   }
 
   /* Code Blocks with Syntax Highlighting */
   .markdown-content pre {
     padding: 20px 0;
-    margin: 20px 0;
+    margin: 24px 0;
     overflow-x: auto;
-    border-radius: 12px;
-    border: 1px solid oklch(0.9 0 0);
-    background: oklch(0.98 0 0);
+    border-radius: 8px;
+    border: 1px solid oklch(0.88 0 0);
+    background: oklch(0.97 0 0);
     counter-reset: line;
     position: relative;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
   }
 
   .dark .markdown-content pre {
-    background: oklch(0.16 0 0);
-    border-color: oklch(0.25 0 0);
+    background: oklch(0.18 0 0);
+    border-color: oklch(0.28 0 0);
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.3);
   }
 
   .markdown-content pre code {
-    @apply bg-transparent p-0 text-sm;
     background-color: transparent !important;
+    border: none !important;
+    padding: 0 !important;
     display: block;
-    line-height: 1.7;
+    line-height: 1.6;
+    font-size: 0.875rem;
     font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    color: oklch(0.2 0 0);
+    color: oklch(0.25 0 0);
   }
 
   .dark .markdown-content pre code {
-    color: oklch(0.9 0 0);
+    color: oklch(0.88 0 0);
   }
 
   /* Line styling */
   .markdown-content pre code .line {
-    padding: 0 20px;
+    padding: 0 24px;
     display: block;
+    min-height: 1.6em;
   }
 
   /* Highlighted lines */
   .markdown-content pre code .line[data-highlighted="true"] {
-    background-color: oklch(0.93 0 0);
-    border-left: 3px solid oklch(0.5 0.15 250);
+    background-color: oklch(0.92 0 0);
+    border-left: 3px solid oklch(0.5 0.18 260);
+    padding-left: 21px;
   }
 
   .dark .markdown-content pre code .line[data-highlighted="true"] {
-    background-color: oklch(0.22 0 0);
-    border-left: 3px solid oklch(0.6 0.15 250);
+    background-color: oklch(0.24 0 0);
+    border-left: 3px solid oklch(0.65 0.18 265);
+    padding-left: 21px;
   }
 
-  /* Syntax highlighting tokens */
+  /* Syntax highlighting tokens - Light Mode */
   .markdown-content .token.comment,
   .markdown-content .token.prolog,
   .markdown-content .token.doctype,
   .markdown-content .token.cdata {
-    color: oklch(0.55 0 0);
+    color: oklch(0.5 0 0);
     font-style: italic;
   }
 
   .markdown-content .token.punctuation {
-    color: oklch(0.4 0 0);
+    color: oklch(0.35 0 0);
+  }
+
+  /* Keywords: const, let, var, function, class, etc. */
+  .markdown-content .token.keyword,
+  .markdown-content .token.atrule {
+    color: oklch(0.45 0.2 320);
+    font-weight: 500;
+  }
+
+  /* Strings */
+  .markdown-content .token.string,
+  .markdown-content .token.attr-value {
+    color: oklch(0.45 0.15 145);
+  }
+
+  /* Functions and methods */
+  .markdown-content .token.function,
+  .markdown-content .token.maybe-class-name {
+    color: oklch(0.4 0.18 265);
+  }
+
+  /* Numbers, booleans, constants */
+  .markdown-content .token.number,
+  .markdown-content .token.boolean,
+  .markdown-content .token.constant {
+    color: oklch(0.5 0.18 30);
+  }
+
+  /* Tags (HTML/JSX) */
+  .markdown-content .token.tag {
+    color: oklch(0.45 0.18 350);
+  }
+
+  /* Attributes */
+  .markdown-content .token.attr-name {
+    color: oklch(0.45 0.15 60);
+  }
+
+  /* Class names */
+  .markdown-content .token.class-name {
+    color: oklch(0.4 0.2 265);
+  }
+
+  /* Operators */
+  .markdown-content .token.operator,
+  .markdown-content .token.entity,
+  .markdown-content .token.url {
+    color: oklch(0.4 0.15 280);
+  }
+
+  /* Variables */
+  .markdown-content .token.variable {
+    color: oklch(0.35 0.08 30);
+  }
+
+  /* Syntax highlighting tokens - Dark Mode */
+  .dark .markdown-content .token.comment,
+  .dark .markdown-content .token.prolog,
+  .dark .markdown-content .token.doctype,
+  .dark .markdown-content .token.cdata {
+    color: oklch(0.55 0 0);
+    font-style: italic;
   }
 
   .dark .markdown-content .token.punctuation {
     color: oklch(0.7 0 0);
   }
 
-  .markdown-content .token.property,
-  .markdown-content .token.tag,
-  .markdown-content .token.boolean,
-  .markdown-content .token.number,
-  .markdown-content .token.constant,
-  .markdown-content .token.symbol,
-  .markdown-content .token.deleted {
-    color: oklch(0.55 0.18 25);
+  /* Keywords: const, let, var, function, class, etc. */
+  .dark .markdown-content .token.keyword,
+  .dark .markdown-content .token.atrule {
+    color: oklch(0.75 0.18 330);
+    font-weight: 500;
   }
 
-  .dark .markdown-content .token.property,
-  .dark .markdown-content .token.tag,
-  .dark .markdown-content .token.boolean,
-  .dark .markdown-content .token.number,
-  .dark .markdown-content .token.constant,
-  .dark .markdown-content .token.symbol,
-  .dark .markdown-content .token.deleted {
-    color: oklch(0.75 0.15 350);
-  }
-
-  .markdown-content .token.selector,
-  .markdown-content .token.attr-name,
-  .markdown-content .token.string,
-  .markdown-content .token.char,
-  .markdown-content .token.builtin,
-  .markdown-content .token.inserted {
-    color: oklch(0.5 0.15 150);
-  }
-
-  .dark .markdown-content .token.selector,
-  .dark .markdown-content .token.attr-name,
+  /* Strings */
   .dark .markdown-content .token.string,
-  .dark .markdown-content .token.char,
-  .dark .markdown-content .token.builtin,
-  .dark .markdown-content .token.inserted {
+  .dark .markdown-content .token.attr-value {
     color: oklch(0.7 0.13 150);
   }
 
-  .markdown-content .token.operator,
-  .markdown-content .token.entity,
-  .markdown-content .token.url,
-  .markdown-content .token.variable {
-    color: oklch(0.45 0.12 280);
-  }
-
-  .dark .markdown-content .token.operator,
-  .dark .markdown-content .token.entity,
-  .dark .markdown-content .token.url,
-  .dark .markdown-content .token.variable {
-    color: oklch(0.7 0.12 280);
-  }
-
-  .markdown-content .token.atrule,
-  .markdown-content .token.attr-value,
-  .markdown-content .token.keyword,
-  .markdown-content .token.class-name {
-    color: oklch(0.5 0.18 330);
-  }
-
-  .dark .markdown-content .token.atrule,
-  .dark .markdown-content .token.attr-value,
-  .dark .markdown-content .token.keyword,
-  .dark .markdown-content .token.class-name {
-    color: oklch(0.75 0.15 330);
-  }
-
-  .markdown-content .token.function,
-  .markdown-content .token.maybe-class-name {
-    color: oklch(0.45 0.18 280);
-  }
-
+  /* Functions and methods */
   .dark .markdown-content .token.function,
   .dark .markdown-content .token.maybe-class-name {
-    color: oklch(0.7 0.15 280);
+    color: oklch(0.75 0.15 265);
   }
 
+  /* Numbers, booleans, constants */
+  .dark .markdown-content .token.number,
+  .dark .markdown-content .token.boolean,
+  .dark .markdown-content .token.constant {
+    color: oklch(0.75 0.15 40);
+  }
+
+  /* Tags (HTML/JSX) */
+  .dark .markdown-content .token.tag {
+    color: oklch(0.75 0.15 355);
+  }
+
+  /* Attributes */
+  .dark .markdown-content .token.attr-name {
+    color: oklch(0.7 0.12 65);
+  }
+
+  /* Class names */
+  .dark .markdown-content .token.class-name {
+    color: oklch(0.75 0.18 265);
+  }
+
+  /* Operators */
+  .dark .markdown-content .token.operator,
+  .dark .markdown-content .token.entity,
+  .dark .markdown-content .token.url {
+    color: oklch(0.75 0.13 285);
+  }
+
+  /* Variables */
+  .dark .markdown-content .token.variable {
+    color: oklch(0.75 0.08 40);
+  }
+
+  /* Additional tokens */
   .markdown-content .token.regex,
   .markdown-content .token.important {
-    color: oklch(0.55 0.18 40);
+    color: oklch(0.5 0.2 40);
   }
 
   .dark .markdown-content .token.regex,
   .dark .markdown-content .token.important {
-    color: oklch(0.75 0.15 60);
+    color: oklch(0.75 0.18 50);
+  }
+
+  .markdown-content .token.property,
+  .markdown-content .token.selector,
+  .markdown-content .token.builtin {
+    color: oklch(0.45 0.15 200);
+  }
+
+  .dark .markdown-content .token.property,
+  .dark .markdown-content .token.selector,
+  .dark .markdown-content .token.builtin {
+    color: oklch(0.7 0.13 210);
   }
 
   .markdown-content .token.bold {
